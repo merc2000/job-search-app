@@ -1,24 +1,43 @@
 
-import {useReducer} from 'react';
-//state is the current state and action contains whatever is passed to dispatch
-//reducer gets called every time we call dispatch
+import {useEffect, useReducer} from 'react';
+import axios from 'axios';
+
 const ACTIONS = {
   MAKE_REQUEST:'make-request',
   GET_DATA:'get-data',
   ERROR:'error'
 };
 
-function reducer(state,action){
+//inorder to get around cors we append https://cors-anywhere.herokuapp.com/ infront of the url 
+const BASE_URL = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json';
 
+function reducer(state,action){
+  switch(action.type){
+    case ACTIONS.MAKE_REQUEST:
+      return {...state,loading:false,jobs:[]}
+    case ACTIONS.GET_DATA:
+      return {...state,loading:true,jobs:action.payload.jobs};
+    case ACTIONS.ERROR:
+      return {...state,loading:false,error:action.payload.error,jobs:[]};
+    default:
+      return state;
+  }
 }
 
 export default function useFetchJobs(params,page){
 
   const [state,dispatch] = useReducer(reducer, {jobs:[],loading:true});
 
-    return{
-      jobs:[],
-      loading:true,
-      error: false
-    }
+  useEffect(()=>{
+    dispatch({type:ACTIONS.MAKE_REQUEST});
+    axios.get(BASE_URL,{
+      params:{markdown:true,page:page,...params}
+    }).then((res)=>{
+      dispatch({type:ACTIONS.GET_DATA , payload:{jobs:res.data}})
+    }).catch(e=>{
+      dispatch({type:ACTIONS.ERROR,payload:{error:e}})
+    })
+  },[params,page]);
+
+    return state;
 }
