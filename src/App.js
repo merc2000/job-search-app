@@ -1,6 +1,7 @@
 import React,{useState}from 'react';
 import useFetchJobs from './useFetchJobs';
 import Job from './Job.js';
+import JobsPagination from './JobsPagination.js';
 import {Container} from 'react-bootstrap'; 
 import './App.css';
 
@@ -12,13 +13,14 @@ function App() {
  
   return (
     <Container className="my-4">
-      <h1>GitHub Jobs</h1>
+      <h1 className="mb-4">GitHub Jobs</h1>
+      <JobsPagination page={page} setPage={setPage}/>
       {loading && <h1>Loading...</h1>}
       {error && <h1>Error</h1>}
       {jobs.map((job)=>{
         return <Job key={job.id} job={job}/>
       })}
-      
+      <JobsPagination page={page} setPage={setPage}/>
     </Container>
   );
 }
