@@ -1,5 +1,6 @@
 import React,{useState}from 'react';
 import useFetchJobs from './useFetchJobs';
+import Job from './Job.js';
 import {Container} from 'react-bootstrap'; 
 import './App.css';
 
@@ -13,7 +14,7 @@ function App() {
     <Container>
       {loading && <h1>Loading...</h1>}
       {error && <h1>Error</h1>}
-      {jobs.map((job)={
+      {jobs.map((job)=>{
         return <Job key={job.id} job={job}/>
       })}
       
