@@ -20,7 +20,7 @@ function App() {
       {jobs.map((job)=>{
         return <Job key={job.id} job={job}/>
       })}
-      <JobsPagination page={page} setPage={setPage}/>
+      <JobsPagination page={page} setPage={setPage} hasNextPage={true}/>
     </Container>
   );
 }
