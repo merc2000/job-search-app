@@ -31,7 +31,9 @@ export default function Job({job}){
           <img className="d-none d-md-block" height="50" alt={job.company} src={job.company_logo}/>
         </div>
         <Card.Text>
-          <Button variant="primary">View details</Button>
+          <Button onClick={()=>setOpen(prevOpen=>!prevOpen)} variant="primary">
+          {open?'Hide Details':'View Details'}
+          </Button>
         </Card.Text>
         <Collapse in={open}>
           <div className="mt-4">
