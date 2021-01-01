@@ -1,5 +1,8 @@
-An web application built using React that displays the jobs avilable by using the GitHub Jobs API. Axios library is used for API call and React Bootstrap for styling.The user can filter the results by description and location.
+An web application built using React that displays the jobs avilable by using the GitHub Jobs API. Axios library is used for API call and React Bootstrap for styling.The user can filter the results by searching by description or location.
 
+<img src="images/Screenshot (5).png" width=800>
+
+<img src="images/Screenshot (4).png" width=800>
 
 # Getting Started with Create React App
 
